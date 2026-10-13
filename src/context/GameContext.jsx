@@ -30,12 +30,15 @@ export function GameProvider({ children }) {
             //setCurrentCountry(countries[number])
             //porque puede no haber cambiado aún el useState
         }
-        catch (error) {
+        catch {
             setError("No se pudieron cargar los países")
         }
         finally {
             setLoading(false)
         }
+    }
+    function changeAnswer(text) {
+        setAnswer(text)
     }
 
     return (
@@ -48,6 +51,7 @@ export function GameProvider({ children }) {
                 result,
                 loading,
                 error,
+                changeAnswer,
             }}>
             {children}
         </GameContext.Provider>
