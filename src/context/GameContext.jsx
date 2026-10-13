@@ -40,6 +40,22 @@ export function GameProvider({ children }) {
     function changeAnswer(text) {
         setAnswer(text)
     }
+    function guess() {
+        if (answer.trim() === "") {
+
+            const playerAnswer = answer.trim().toLowerCase()
+            const correctAnswer = currentCountry.name.trim().toLowerCase()
+
+            if (playerAnswer === correctAnswer) {
+                setScore(score + 10)
+                setResult(true)
+            }
+            else {
+                setScore(score - 1)
+                setResult(false)
+            }
+        }
+    }
 
     return (
         <GameContext.Provider
@@ -52,6 +68,7 @@ export function GameProvider({ children }) {
                 loading,
                 error,
                 changeAnswer,
+                guess,
             }}>
             {children}
         </GameContext.Provider>
