@@ -39,9 +39,14 @@ export function GameProvider({ children }) {
     }
     function changeAnswer(text) {
         setAnswer(text)
+        setResult(null)
+    }
+    function nextCountry() {
+        const number = Math.floor(Math.random() * countries.length)
+        setCurrentCountry(countries[number])
     }
     function guess() {
-        if (answer.trim() === "") {
+        if (answer.trim() != "") {
 
             const playerAnswer = answer.trim().toLowerCase()
             const correctAnswer = currentCountry.name.trim().toLowerCase()
@@ -49,6 +54,8 @@ export function GameProvider({ children }) {
             if (playerAnswer === correctAnswer) {
                 setScore(score + 10)
                 setResult(true)
+                setAnswer("")
+                nextCountry()
             }
             else {
                 setScore(score - 1)
@@ -56,6 +63,7 @@ export function GameProvider({ children }) {
             }
         }
     }
+
 
     return (
         <GameContext.Provider
@@ -69,6 +77,7 @@ export function GameProvider({ children }) {
                 error,
                 changeAnswer,
                 guess,
+                nextCountry,
             }}>
             {children}
         </GameContext.Provider>
